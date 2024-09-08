@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import HelloWorldAPIView
+from . import views
 
 urlpatterns = [
-    path('', HelloWorldAPIView.as_view(), name='hello-world-api'),
+    path('recommend/<str:product_id>/', views.get_recommendations, name='get_recommendations'),
 ]

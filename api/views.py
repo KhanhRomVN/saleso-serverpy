@@ -1,13 +1,19 @@
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
-from .models import HelloWorld
-from .serializers import HelloWorldSerializer
+import pickle
+from django.http import JsonResponse
+from django.views.decorators.http import require_http_methods
 
-class HelloWorldAPIView(APIView):
-    def post(self, request):
-        serializer = HelloWorldSerializer(data={'name': 'Hello World'})
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+@require_http_methods(["GET"])
+def get_recommendations(request, product_id):
+    try:
+        with open('../model/recommendation_model.pkl', 'rb') as f:
+            model_data = pickle.load(f)
+        
+        cosine_sim = model_data['cosine_sim']
+        product_ids = model_data['product_ids']
+        get_recommendations_func = model_data['get_recommendations']
+        
+        recommended_ids = get_recommendations_func(product_id, cosine_sim)
+        
+        return JsonResponse({'recommended_products': recommended_ids})
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=400)
