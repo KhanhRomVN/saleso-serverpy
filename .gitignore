@@ -1,5 +1,7 @@
-venv/
 pyserver/__pycache__/
 api/__pycache__/
 api/migrations/__pycache__/
+.venv/
+.env/
 .env
+notebook/
