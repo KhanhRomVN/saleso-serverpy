@@ -44,7 +44,7 @@ ROOT_URLCONF = 'pyserver.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR, 'templates/'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -67,7 +67,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': config('PGDATABASE'),
-        'USER': config('PGUSER'),
+        'USER': config('PGUSER'),   
         'PASSWORD': config('PGPASSWORD'),
         'HOST': config('PGHOST'),
         'PORT': config('PGPORT', default=5432, cast=int),
@@ -118,3 +118,6 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+import sys
+import os
+sys.path.append(os.path.dirname(BASE_DIR))
