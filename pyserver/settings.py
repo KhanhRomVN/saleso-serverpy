@@ -125,9 +125,18 @@ import os
 sys.path.append(os.path.dirname(BASE_DIR))
 
 import ast
-
 CORS_ALLOW_ALL_ORIGINS = False
-CORS_ALLOWED_ORIGINS = ast.literal_eval(config('WHITE_LIST', default="[]"))
+# CORS_ALLOWED_ORIGINS = ast.literal_eval(config('WHITE_LIST', default="[]"))
+# CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173", 
+    "http://127.0.0.1:5173",
+    "http://localhost:3000",
+    "https://saleso.vercel.app",
+    "https://saleso-seller.vercel.app",
+    "https://saleso-admin.vercel.app"
+]
+
 CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOW_METHODS = [
@@ -140,13 +149,10 @@ CORS_ALLOW_METHODS = [
 ]
 
 CORS_ALLOW_HEADERS = [
-    'accept',
-    'accept-encoding',
-    'authorization',
-    'content-type',
-    'dnt',
-    'origin',
-    'user-agent',
-    'x-csrftoken',
-    'x-requested-with',
+    "accept",
+    "authorization",
+    "content-type",
+    "user-agent",
+    "x-csrftoken",
+    "x-requested-with",
 ]
